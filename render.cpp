@@ -1,5 +1,6 @@
 #include "render.h"
 #include "graphics.h"
+#include <iostream>
 
 extern int rotQuad;
 
@@ -36,12 +37,23 @@ void ModelRenderer::render()
     for(int boxNum = 0; boxNum < boxes.size(); boxNum++)
         boxes[boxNum]->render();
 }
-void Model::addPart(const std::string &name)
+Model::Model(const std::string& modelClass)
 {
-    parts.push_back(new ModelRenderer());
+    this->modelClass = modelClass;
+}
+void Model::addPart(std::string &name)
+{
+    parts[name] = new ModelRenderer();
+
 }
 void Model::render()
 {
-    for(int partNum = 0; partNum < parts.size(); partNum++)
-        parts[partNum]->render();
+    for(auto& part : parts)
+    {
+        part.second->render();
+    }
+}
+ModelRenderer Model::getPart(std::string &name)
+{
+
 }

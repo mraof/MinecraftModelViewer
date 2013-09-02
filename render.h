@@ -1,6 +1,7 @@
 #ifndef RENDER_H_INCLUDED
 #define RENDER_H_INCLUDED
 #include <vector>
+#include <map>
 #include <string>
 
 class Box
@@ -37,8 +38,11 @@ public:
 class Model
 {
 public:
-    std::vector<ModelRenderer*> parts;
-    void addPart(const std::string &name);
+    std::map<std::string, ModelRenderer*> parts;
+    std::string modelClass;
+    Model(const std::string& modelClass);
+    void addPart(std::string& name);
+    ModelRenderer getPart(std::string& name);
     void render();
 };
 

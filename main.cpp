@@ -2,11 +2,15 @@
 #include "globals.h"
 #include "os.h"
 #include "render.h"
+#include "parser.h"
+#include <string>
+#include <iostream>
 
 float rotQuad;
 float translateX;
 float translateY;
 float translateZ;
+bool running;
 
 
 void resizeGL(unsigned int width, unsigned int height)
@@ -37,15 +41,23 @@ void renderGL()
 }
 int main()
 {
+    running = true;
     OS::init();
     Graphics::init();
     resizeGL(640, 480);
-    Model model;
-    model.addPart("Head");
-    model.parts[0]->setRotationPoint(1.0f, 0.5f, 0.25f);
-    model.parts[0]->addBox(-3, -3, 0, 10, 1, 1);
-    model.parts[0]->addBox(-3, 0, 4, 10, 1, 1);
-    while(1)
+    std::string modelClass = "ModelImp";
+    Model model(modelClass);
+    std::string partName = "Head";
+    model.addPart(partName);
+    model.parts[partName]->textureOffsetX = 0;
+    model.parts[partName]->textureOffsetY = 0;
+    model.parts[partName]->setRotationPoint(1.0f, 0.5f, 0.25f);
+    model.parts[partName]->addBox(-3, -3, 0, 10, 1, 1);
+    model.parts[partName]->addBox(-3, 0, 4, 10, 1, 1);
+    std::string src = "";
+    createSourceFromModel(&model, src);
+    std::cout << src;
+    while(running)
     {
         renderGL();
         model.render();

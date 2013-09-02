@@ -1,9 +1,8 @@
 #ifndef GRAPHICS_H_INCLUDED
 #define GRAPHICS_H_INCLUDED
-#include <SFML/OpenGL.hpp>
-//#include <SFML/Window.hpp>
-//#include <SFML/Graphics.hpp>
 #include <string>
+#include <GL/gl.h>
+#include <GL/glu.h>
 
 extern GLuint sprites[];
 extern GLuint backgrounds[];

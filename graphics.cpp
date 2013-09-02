@@ -1,13 +1,11 @@
 #include "globals.h"
 #include "graphics.h"
-//#include <SFML/OpenGL.hpp>
-//#include <SFML/Graphics.hpp>
 #include "stb_image.h"
-#include <GL/gl.h>
-#include <GL/glu.h>
 #include <iostream>
 #include <ctime>
 #include <cstdio>
+
+extern int rotQuad;
 
 GLuint sprites[20];
 int Graphics::offsetX;
@@ -25,7 +23,7 @@ void Graphics::init()
     /* we use resizeGL once to set up our initial perspective */
 //    resizeGL(WINDOW_WIDTH, WINDOW_HEIGHT);
     /* Reset the rotation angle of our object */
-//    rotQuad = 0;
+    rotQuad = 0;
     glFlush();
 
 //    glMatrixMode (GL_PROJECTION);
@@ -150,16 +148,3 @@ int Graphics::loadImage(const std::string& filename)
     );
     return texture_handle;
 }
-//void Graphics::screenshot(const sf::RenderWindow& window)
-//{
-//        time_t rawtime;
-//        struct tm * timeinfo;
-//        char buffer [80];
-//
-//        time ( &rawtime );
-//        timeinfo = localtime ( &rawtime );
-//
-//        strftime (buffer,80,"screenshot-%Y-%m-%d-%H-%M-%S.png",timeinfo);
-//        puts (buffer);
-//        window.capture().saveToFile(buffer);
-//}
