@@ -60,7 +60,7 @@ void Model::render()
     glTranslatef(0, 16, 0);
 //    std::cout << rotY << ", " << rotZ << "\n";
     glRotatef(rotZ, 0, 0, 1.0);
-    glRotatef(rotY, -sin(rotZ), cos(rotZ), 0);
+    glRotatef(rotY, 0, 1.0, 0);
     glTranslatef(0, -16, 0);
     for(auto& part : parts)
     {

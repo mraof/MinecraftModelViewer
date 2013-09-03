@@ -60,8 +60,8 @@ void createModelFromSource(Model* model, std::string &src)
                 if(var != std::string::npos)
                 {
                     var = line.find("(", var) + 1;
-//                    if(line[var] == '\"')
-                        var = line.find_first_of("1234567890-.", var);
+                    if(line[var] == '\"')
+                        var = line.find_first_of("1234567890-.", var + 1);
                     float nums[6];
                     for(int i = 0; i < 6; i++)
                     {
@@ -104,7 +104,7 @@ void createSourceFromModel(Model* model, std::string &src)
     for(auto& part : model->parts)
     {
         srcStream << "\n        " << part.first << " = new ModelRenderer(this, " << part.second->textureOffsetX << ", " << part.second->textureOffsetY << ");";
-        for(int i = 0; i < part.second->boxes.size(); i++)
+        for(unsigned int i = 0; i < part.second->boxes.size(); i++)
         {
             Box* box = part.second->boxes[i];
             srcStream << "\n        " << part.first << ".addBox(" << box->x << ", " << box->y << ", " << box->z << ", " << box->width << ", " << box->height << ", " << box->length << ");";

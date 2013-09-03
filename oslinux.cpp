@@ -36,12 +36,12 @@ namespace OS
         XSetWMProtocols(dpy, win, &wmDeleteMessage, 1);
         glc = glXCreateContext(dpy, vi, NULL, GL_TRUE);
         glXMakeCurrent(dpy, win, glc);
+        return 0;
     }
     void refresh()
     {
         glXSwapBuffers(dpy, win);
         XEvent msg;
-        XEvent next;
         while(XPending(dpy) > 0)
         {
             XNextEvent(dpy, &msg);
