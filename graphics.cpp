@@ -5,7 +5,9 @@
 #include <ctime>
 #include <cstdio>
 
-extern int rotQuad;
+extern int rotY;
+extern int rotZ;
+extern int translateZ;
 
 GLuint sprites[20];
 int Graphics::offsetX;
@@ -23,7 +25,9 @@ void Graphics::init()
     /* we use resizeGL once to set up our initial perspective */
 //    resizeGL(WINDOW_WIDTH, WINDOW_HEIGHT);
     /* Reset the rotation angle of our object */
-    rotQuad = 0;
+    rotY = 0;
+    rotZ = 0;
+//    translateZ = -16;
     glFlush();
 
 //    glMatrixMode (GL_PROJECTION);
@@ -54,44 +58,47 @@ void Graphics::init()
 
 void Graphics::renderBox(float x, float y, float z, float width, float height, float length)
 {
+    glPushMatrix();
+    glTranslatef(x, y, z);
     glBegin(GL_QUADS);
         /* top of cube */
         glColor3f(0.0f, 1.0f, 0.0f);
-        glVertex3f(x + width, y + height, z);
-        glVertex3f(x, y + height, z);
-        glVertex3f(x, y + height, z + length);
-        glVertex3f(x + width, y + height, z + length);
+        glVertex3f(0 + width, 0 + height, 0);
+        glVertex3f(0, 0 + height, 0);
+        glVertex3f(0, 0 + height, 0 + length);
+        glVertex3f(0 + width, 0 + height, 0 + length);
         /* bottom of cube */
-        glColor3f(x + width, 0.5f, 0.0f);
-        glVertex3f(x + width, y, z + length);
-        glVertex3f(x, y, z + length);
-        glVertex3f(x, y, z);
-        glVertex3f(x + width, y, z);
+        glColor3f(0 + width, 0.5f, 0.0f);
+        glVertex3f(0 + width, 0, 0 + length);
+        glVertex3f(0, 0, 0 + length);
+        glVertex3f(0, 0, 0);
+        glVertex3f(0 + width, 0, 0);
         /* front of cube */
         glColor3f(1.0f, 0.0f, 0.0f);
-        glVertex3f(x + width, y + height, z + length);
-        glVertex3f(x, y + height, z + length);
-        glVertex3f(x, y, z + length);
-        glVertex3f(x + width, y, z + length);
+        glVertex3f(0 + width, 0 + height, 0 + length);
+        glVertex3f(0, 0 + height, 0 + length);
+        glVertex3f(0, 0, 0 + length);
+        glVertex3f(0 + width, 0, 0 + length);
         /* back of cube */
         glColor3f(x + width, 1.0f, 0.0f);
-        glVertex3f(x, y + height, z);
-        glVertex3f(x + width, y + height, z);
-        glVertex3f(x + width, y, z);
-        glVertex3f(x, y, z);
+        glVertex3f(0, 0 + height, 0);
+        glVertex3f(0 + width, 0 + height, 0);
+        glVertex3f(0 + width, 0, 0);
+        glVertex3f(0, 0, 0);
         /* right side of cube */
         glColor3f(1.0f, 0.0f, 1.0f);
-        glVertex3f(x + width, y + height, z);
-        glVertex3f(x + width, y + height, z + length);
-        glVertex3f(x + width, y, z + length);
-        glVertex3f(x + width, y, z);
+        glVertex3f(0 + width, 0 + height, 0);
+        glVertex3f(0 + width, 0 + height, 0 + length);
+        glVertex3f(0 + width, 0, 0 + length);
+        glVertex3f(0 + width, 0, 0);
         /* left side of cube */
         glColor3f(0.0f, 1.0f, 1.0f);
-        glVertex3f(x, y + height, z + length);
-        glVertex3f(x, y + height, z);
-        glVertex3f(x, y, z);
-        glVertex3f(x, y, z + length);
+        glVertex3f(0, 0 + height, 0 + length);
+        glVertex3f(0, 0 + height, 0);
+        glVertex3f(0, 0, 0);
+        glVertex3f(0, 0, 0 + length);
     glEnd();
+    glPopMatrix();
 }
 void Graphics::drawSprite(int x, int y, int width, int height, GLuint texture, bool withOffset)
 {

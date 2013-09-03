@@ -1,7 +1,8 @@
 #include "input.h"
 #include "globals.h"
 
-extern float rotQuad;
+extern float rotY;
+extern float rotZ;
 extern float translateX;
 extern float translateY;
 extern float translateZ;
@@ -9,9 +10,13 @@ extern float translateZ;
 void keyPress(int key)
 {
     if (key == OS_KEY_UP)
-        rotQuad += 0.4f;
+        rotZ += 0.1f;
     if(key == OS_KEY_DOWN)
-        rotQuad -= 0.4f;
+        rotZ -= 0.1f;
+    if(key == OS_KEY_LEFT)
+        rotY += 0.1f;
+    if(key == OS_KEY_RIGHT)
+        rotY -= 0.1f;
     if(key == OS_KEY_D)
         translateX += 0.1f;
     if(key == OS_KEY_A)

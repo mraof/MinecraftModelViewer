@@ -1,6 +1,7 @@
 #include "parser.h"
 #include <sstream>
 #include <iostream>
+#include <cstdlib>
 
 size_t endOfNum(std::string &line, size_t start)
 {
@@ -58,7 +59,7 @@ void createModelFromSource(Model* model, std::string &src)
                 var = line.find(part.first + ".addBox", var + 1);
                 if(var != std::string::npos)
                 {
-                    var = line.find("(", var) + 2;
+                    var = line.find("(", var) + 1;
                     float nums[6];
                     for(int i = 0; i < 6; i++)
                     {
@@ -70,9 +71,10 @@ void createModelFromSource(Model* model, std::string &src)
                     }
                     part.second->addBox(nums[0], nums[1], nums[2], nums[3], nums[4], nums[5]);
                 }
+                var = line.find(part.first + ".setRotationPoint", var + 1);
                 if(var != std::string::npos)
                 {
-                    var = line.find("(", var) + 2;
+                    var = line.find("(", var) + 1;
                     float nums[3];
                     for(int i = 0; i < 3; i++)
                     {

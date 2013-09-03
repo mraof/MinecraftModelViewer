@@ -1,4 +1,5 @@
 #include "oslinux.h"
+#include "globals.h"
 #include "input.h"
 #include <GL/glx.h>
 #include <sys/time.h>

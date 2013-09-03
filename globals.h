@@ -5,6 +5,7 @@
 #define PERIOD (1000/60)
 #define WINDOW_WIDTH 640
 #define WINDOW_HEIGHT 480
+#define WINDOW_TITLE "Minecraft Model Viewer"
 #define CREATURE_SIZE 28
 #define TILE_SIZE 32
 #define EMPTY 0

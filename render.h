@@ -42,7 +42,7 @@ public:
     std::string modelClass;
     Model(const std::string& modelClass);
     void addPart(std::string& name);
-    ModelRenderer getPart(std::string& name);
+    ModelRenderer* getPart(std::string& name);
     void render();
 };
 

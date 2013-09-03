@@ -1,8 +1,10 @@
 #include "render.h"
 #include "graphics.h"
 #include <iostream>
+#include <math.h>
 
-extern int rotQuad;
+extern int rotY;
+extern int rotZ;
 
 Box::Box(float x, float y, float z, float width, float height, float length)
 {
@@ -33,9 +35,14 @@ void ModelRenderer::setRotationPoint(float par1, float par2, float par3)
 }
 void ModelRenderer::render()
 {
-    glRotatef(rotQuad, rotationPointX, rotationPointY, rotationPointZ);
-    for(int boxNum = 0; boxNum < boxes.size(); boxNum++)
+//    glPushMatrix();
+    std::cout << rotationPointX << ", " << rotationPointY << ", " << rotationPointZ << "\n";
+    glTranslatef(rotationPointX, rotationPointY, rotationPointZ);
+//    glRotatef(rotZ, rotationPointX, rotationPointY, rotationPointZ);
+    for(unsigned int boxNum = 0; boxNum < boxes.size(); boxNum++)
         boxes[boxNum]->render();
+    glTranslatef(-rotationPointX, -rotationPointY, -rotationPointZ);
+//    glPopMatrix();
 }
 Model::Model(const std::string& modelClass)
 {
@@ -48,12 +55,18 @@ void Model::addPart(std::string &name)
 }
 void Model::render()
 {
+    glPushMatrix();
+    glTranslatef(0, 16, 0);
+    glRotatef(rotZ, 0, 0, 1.0);
+    glRotatef(rotY, -sin(rotZ), cos(rotZ), 0);
+    glTranslatef(0, -16, 0);
     for(auto& part : parts)
     {
         part.second->render();
     }
+    glPopMatrix();
 }
-ModelRenderer Model::getPart(std::string &name)
+ModelRenderer* Model::getPart(std::string &name)
 {
-
+    return parts[name];
 }

@@ -1,4 +1,8 @@
 #include "oswin.h"
+#include "globals.h"
+#include "input.h"
+
+extern int running;
 
 namespace OS
 {
@@ -14,6 +18,11 @@ namespace OS
                 PostQuitMessage(0);
                 return 0;
             }
+            case WM_KEYDOWN:
+//                if(HIWORD(lParam) & KF_REPEAT) break; //No key repeat
+//                else
+                    keyPress(wParam);
+                return 0;
             break;
         }
 
@@ -40,7 +49,7 @@ namespace OS
         RegisterClassEx(&wclass);
 
         os_window = CreateWindowEx(NULL, WINDOW_CLASS, WINDOW_TITLE,  WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WINDOW_STYLE,
-                                    CW_USEDEFAULT, CW_USEDEFAULT, 640, 480, NULL, NULL, GetModuleHandle(NULL), NULL);
+                                    CW_USEDEFAULT, CW_USEDEFAULT, WINDOW_WIDTH, WINDOW_HEIGHT, NULL, NULL, GetModuleHandle(NULL), NULL);
 
         ShowWindow(os_window, SW_SHOW);
         PIXELFORMATDESCRIPTOR pfg =
@@ -74,5 +83,22 @@ namespace OS
         wglMakeCurrent(NULL, NULL);
         wglDeleteContext(os_render_context);
         ReleaseDC(os_window, os_device_context);
+    }
+    void refresh()
+    {
+        SwapBuffers(os_device_context);
+        MSG _msg;
+        while(PeekMessage(&_msg, NULL, 0, 0, PM_REMOVE))
+        {
+            if(_msg.message == WM_QUIT)
+            {
+                running = false;
+            }
+            else
+            {
+                TranslateMessage(&_msg);
+                DispatchMessage(&_msg);
+            }
+        }
     }
 }
