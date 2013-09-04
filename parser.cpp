@@ -60,8 +60,8 @@ void createModelFromSource(Model* model, std::string &src)
                 if(var != std::string::npos)
                 {
                     var = line.find("(", var) + 1;
-                    if(line[var] == '\"')
-                        var = line.find_first_of("1234567890-.", var + 1);
+//                    if(line[var] == '\"')
+                        var = line.find_first_of("1234567890-.", var);
                     float nums[6];
                     for(int i = 0; i < 6; i++)
                     {

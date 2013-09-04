@@ -7,7 +7,11 @@
 #include <iostream>
 #include <fstream>
 
+<<<<<<< HEAD
 float modelSize;
+=======
+float modelSize;
+>>>>>>> c40284f... I probably fixed something
 float rotY;
 float rotZ;
 float translateX;
@@ -60,6 +64,7 @@ int main(int argc, char* argv[])
     modelSize = 48;
     std::string modelClass = "ModelNull";
     Model model(modelClass);
+<<<<<<< HEAD
     std::ifstream sourceFile(filename);
     if(!sourceFile.is_open())
     {
@@ -73,6 +78,9 @@ int main(int argc, char* argv[])
         OS::deinit();
         exit(1);
     }
+=======
+    std::ifstream sourceFile("models/ModelBasilisk.java");
+>>>>>>> c40284f... I probably fixed something
     sourceFile.seekg(0, std::ios::end);
     size_t fileSize = sourceFile.tellg();
     std::string inputSrc(fileSize, ' ');
