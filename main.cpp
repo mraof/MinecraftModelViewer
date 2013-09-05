@@ -65,6 +65,7 @@ int main(int argc, char* argv[])
     std::string modelClass = "ModelNull";
     Model model(modelClass);
 <<<<<<< HEAD
+<<<<<<< HEAD
     std::ifstream sourceFile(filename);
     if(!sourceFile.is_open())
     {
@@ -81,6 +82,9 @@ int main(int argc, char* argv[])
 =======
     std::ifstream sourceFile("models/ModelBasilisk.java");
 >>>>>>> c40284f... I probably fixed something
+=======
+    std::ifstream sourceFile("models/ModelCruxtruder.java");
+>>>>>>> 1b7e580... Fixed rotation
     sourceFile.seekg(0, std::ios::end);
     size_t fileSize = sourceFile.tellg();
     std::string inputSrc(fileSize, ' ');

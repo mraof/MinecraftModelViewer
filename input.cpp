@@ -31,7 +31,11 @@ void keyPress(int key)
     if(key == OS_KEY_E)
         translateZ -= 0.5f;
 <<<<<<< HEAD
+<<<<<<< HEAD
     std::cout << rotY << ", " << rotZ << "\n";
 =======
 >>>>>>> c40284f... I probably fixed something
+=======
+    std::cout << rotY << ", " << rotZ << "\n";
+>>>>>>> 1b7e580... Fixed rotation
 }

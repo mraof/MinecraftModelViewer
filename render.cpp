@@ -4,12 +4,17 @@
 #include <math.h>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 extern float rotY;
 extern float rotZ;
 =======
 extern int rotY;
 extern int rotZ;
 >>>>>>> c40284f... I probably fixed something
+=======
+extern float rotY;
+extern float rotZ;
+>>>>>>> 1b7e580... Fixed rotation
 extern float modelSize;
 
 Box::Box(float x, float y, float z, float width, float height, float length)
@@ -63,7 +68,11 @@ void Model::render()
 {
     glPushMatrix();
     glTranslatef(0, 16, 0);
+<<<<<<< HEAD
 //    std::cout << rotY << ", " << rotZ << "\n";
+=======
+    std::cout << rotY << ", " << rotZ << "\n";
+>>>>>>> 1b7e580... Fixed rotation
     glRotatef(rotZ, 0, 0, 1.0);
     glRotatef(rotY, -sin(rotZ), cos(rotZ), 0);
     glTranslatef(0, -16, 0);
