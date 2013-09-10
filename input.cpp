@@ -1,5 +1,6 @@
 #include "input.h"
 #include "globals.h"
+#include <iostream>
 
 extern float rotY;
 extern float rotZ;
@@ -26,7 +27,8 @@ void keyPress(int key)
     if(key == OS_KEY_S)
         translateY -= 0.1f;
     if(key == OS_KEY_Q)
-        translateZ += 0.1f;
+        translateZ += 0.5f;
     if(key == OS_KEY_E)
-        translateZ -= 0.1f;
+        translateZ -= 0.5f;
+    std::cout << rotY << ", " << rotZ << "\n";
 }

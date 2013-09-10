@@ -31,12 +31,12 @@ void createModelFromSource(Model* model, std::string &src)
             model->modelClass = line.substr(var, varEnd);
         }
         var = line.find("ModelRenderer ");
-        if(var != std::string::npos)
+        if(var != std::string::npos && line[var - 1] != '(')
         {
             var = line.find(" ", var) + 1;
             varEnd = line.find(";", var) - var;
             std::string partName = line.substr(var, varEnd);
-//            std::cout << partName;
+            std::cout << partName << " | " << line << "\n";
             model->addPart(partName);
         }
         for(auto& part : model->parts)
@@ -60,6 +60,8 @@ void createModelFromSource(Model* model, std::string &src)
                 if(var != std::string::npos)
                 {
                     var = line.find("(", var) + 1;
+//                    if(line[var] == '\"')
+                        var = line.find_first_of("1234567890-.", var);
                     float nums[6];
                     for(int i = 0; i < 6; i++)
                     {

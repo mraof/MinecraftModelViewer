@@ -3,8 +3,9 @@
 #include <iostream>
 #include <math.h>
 
-extern int rotY;
-extern int rotZ;
+extern float rotY;
+extern float rotZ;
+extern float modelSize;
 
 Box::Box(float x, float y, float z, float width, float height, float length)
 {
@@ -36,9 +37,8 @@ void ModelRenderer::setRotationPoint(float par1, float par2, float par3)
 void ModelRenderer::render()
 {
 //    glPushMatrix();
-    std::cout << rotationPointX << ", " << rotationPointY << ", " << rotationPointZ << "\n";
+//    std::cout << rotationPointX << ", " << rotationPointY << ", " << rotationPointZ << "\n";
     glTranslatef(rotationPointX, rotationPointY, rotationPointZ);
-//    glRotatef(rotZ, rotationPointX, rotationPointY, rotationPointZ);
     for(unsigned int boxNum = 0; boxNum < boxes.size(); boxNum++)
         boxes[boxNum]->render();
     glTranslatef(-rotationPointX, -rotationPointY, -rotationPointZ);
@@ -50,6 +50,7 @@ Model::Model(const std::string& modelClass)
 }
 void Model::addPart(std::string &name)
 {
+    std::cout << "adding part " << name << "\n";
     parts[name] = new ModelRenderer();
 
 }
@@ -57,6 +58,7 @@ void Model::render()
 {
     glPushMatrix();
     glTranslatef(0, 16, 0);
+//    std::cout << rotY << ", " << rotZ << "\n";
     glRotatef(rotZ, 0, 0, 1.0);
     glRotatef(rotY, -sin(rotZ), cos(rotZ), 0);
     glTranslatef(0, -16, 0);

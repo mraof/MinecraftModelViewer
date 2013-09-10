@@ -5,7 +5,9 @@
 #include "parser.h"
 #include <string>
 #include <iostream>
+#include <fstream>
 
+float modelSize;
 float rotY;
 float rotZ;
 float translateX;
@@ -43,64 +45,39 @@ void renderGL()
 //        glXSwapBuffers(display, window);
 //    }
 }
-int main()
+int main(int argc, char* argv[])
 {
+    if(argc <= 1)
+    {
+        std::cout << "please provide a file";
+        exit(1);
+    }
+    std::string filename(argv[1]);
     running = true;
     OS::init();
     Graphics::init();
     resizeGL(640, 480);
+    modelSize = 48;
     std::string modelClass = "ModelNull";
     Model model(modelClass);
-    //temporary, only for testing
-    std::string inputSrc = "\
-public class ModelImp extends ModelBase\n\
-{\n\
-	//fields\n\
-	ModelRenderer Head;\n\
-	ModelRenderer Body;\n\
-	ModelRenderer Armright;\n\
-	ModelRenderer Armleft;\n\
-	ModelRenderer Legleft;\n\
-	ModelRenderer Legright;\n\
-\n\
-	public ModelImp()\n\
-	{\n\
-		textureWidth = 32;\n\
-		textureHeight = 32;\n\
-\n\
-		Head = new ModelRenderer(this, 0, 0);\n\
-		Head.addBox(-3F, -3F, -5F, 5, 5, 5);\n\
-		Head.setRotationPoint(0F, 15F, 0F);\n\
-		Head.mirror = true;\n\
-		setRotation(Head, 0F, 0F, 0F); \n\
-		Body = new ModelRenderer(this, 0, 10);\n\
-		Body.addBox(-3F, -4F, -2F, 5, 6, 4);\n\
-		Body.setRotationPoint(0F, 19F, 0F);\n\
-		Body.mirror = true;\n\
-		setRotation(Body, 0F, 0F, 0F);\n\
-		Armright = new ModelRenderer(this, 0, 20);\n\
-		Armright.addBox(-1F, 0F, -1F, 1, 5, 1);\n\
-		Armright.setRotationPoint(-3F, 16F, 0F);\n\
-		Armright.mirror = true;\n\
-		setRotation(Armright, 0F, 0.0371786F, 0.0371786F); \n\
-		Armleft = new ModelRenderer(this, 0, 20);\n\
-		Armleft.addBox(0F, 0F, -1F, 1, 5, 1);\n\
-		Armleft.setRotationPoint(2F, 16F, 0F);\n\
-		Armleft.mirror = true;\n\
-		setRotation(Armleft, 0F, 0F, 0F);\n\
-		Legleft = new ModelRenderer(this, 4, 20);\n\
-		Legleft.addBox(-1F, 0F, 0F, 1, 3, 1);\n\
-		Legleft.setRotationPoint(-1F, 21F, 0F);\n\
-		Legleft.mirror = true;\n\
-		setRotation(Legleft, 0F, 0F, 0F);\n\
-		Legright = new ModelRenderer(this, 4, 20);\n\
-		Legright.addBox(0F, 0F, 0F, 1, 3, 1);\n\
-		Legright.setRotationPoint(0F, 21F, 0F);\n\
-		Legright.mirror = true;\n\
-		setRotation(Legright, 0F, 0F, 0F);\n\
-	}\n\
-}\n\
-";
+    std::ifstream sourceFile(filename);
+    if(!sourceFile.is_open())
+    {
+        std::cout << "file " << filename << "could not be opened\n";
+        OS::deinit();
+        exit(1);
+    }
+    else if(sourceFile.bad())
+    {
+        std::cout << "file " << filename << "is bad\n";
+        OS::deinit();
+        exit(1);
+    }
+    sourceFile.seekg(0, std::ios::end);
+    size_t fileSize = sourceFile.tellg();
+    std::string inputSrc(fileSize, ' ');
+    sourceFile.seekg(0);
+    sourceFile.read(&inputSrc[0], fileSize);
     createModelFromSource(&model, inputSrc);
     std::string src = "";
     createSourceFromModel(&model, src);
