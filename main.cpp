@@ -47,13 +47,13 @@ void renderGL()
 }
 int main(int argc, char* argv[])
 {
+    running = true;
     if(argc <= 1)
     {
         std::cout << "please provide a file";
         exit(1);
     }
     std::string filename(argv[1]);
-    running = true;
     OS::init();
     Graphics::init();
     resizeGL(640, 480);
